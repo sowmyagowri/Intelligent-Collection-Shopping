@@ -1,0 +1,29 @@
+{
+  "name": "IntelligentCollectionShopping_server",
+  "version": "1.0.0",
+  "description": "IntelligentCollectionShopping server",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-validator": "^5.3.0",
+    "mongoose": "^5.2.12"
+  },
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "create-react-app"
+  ]
+}

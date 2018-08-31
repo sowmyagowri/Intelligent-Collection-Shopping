@@ -1,0 +1,59 @@
+import React, { Component } from 'react';
+import {
+  Dimensions,
+  StyleSheet
+} from 'react-native';
+
+const DEVICE_WIDTH = Dimensions.get('window').width;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
+const MARGIN = 40;
+
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  normalText: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  backgroundImg: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    //resizeMode: 'cover',
+  },
+  input: {
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    width: DEVICE_WIDTH - 40,
+    height: 40,
+    marginHorizontal: 20,
+    paddingLeft: 45,
+    borderRadius: 20,
+    color: '#ffffff',
+  },
+  inputWrapper: {
+    flex: 1,
+  },
+  loginInputContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  loginButton: {
+    alignItems: 'center',
+    width: DEVICE_WIDTH - 40,
+    justifyContent: 'center',
+    backgroundColor: '#F035E0',
+    height: MARGIN,
+    borderRadius: 20,
+    zIndex: 100,
+  },
+});
