@@ -8,7 +8,8 @@ import {
   Text,
   Button,
   TextInput,
-  View
+  View,
+  Alert
 } from 'react-native';
 
 import {Actions, ActionConst} from 'react-native-router-flux';
@@ -18,10 +19,75 @@ import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 
 export default class ICSLogin extends Component {
-  onPress() {
 
-      Actions.homeScene();
+  constructor(){
+    super();
+    this.state ={ isLoading:true, user1: {}};
   }
+
+
+  async fetchData(): Promise<void>{
+    try{
+      const response = await fetch('http://192.168.1.128:5000/users1/authenticate', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: 'test1',
+          userPassword: 'test1',
+        }),
+      })
+      const json = await response.json();
+      const user1 = json.user1;
+      await this.promisedSetState({user1:user1});
+      if(this.state.user1)
+      {
+        Actions.homeScene();
+      }
+    }
+    catch(err)
+    {
+      return error(err);
+    }
+  }
+
+  promisedSetState = (newState) => {
+        return new Promise((resolve) => {
+            this.setState(newState, () => {
+                resolve()
+            });
+        });
+  }
+
+  onPress() {
+  //  (async () => {
+    //  await this.fetchData().done();
+  //  })();
+    return fetch('http://192.168.1.128:5000/users1/authenticate', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: 'test1',
+          userPassword: 'test1',
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        Actions.homeScene();
+      })
+      .catch((error) =>{
+        console.error(error);
+        
+      });
+
+  }
+
 
   render() {
     return (

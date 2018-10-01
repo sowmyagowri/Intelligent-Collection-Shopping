@@ -9,13 +9,14 @@ export default class FetchExample extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://192.168.1.128:5000/api/hello')
+   //return fetch('http://192.168.1.128:5000/api/hello')
+    return fetch('http://192.168.1.128:5000/users')
       .then((response) => response.json())
       .then((responseJson) => {
-
+        console.log(responseJson);
         this.setState({
           isLoading: false,
-          dataSource: responseJson.express,
+          dataSource: responseJson,
         }, function(){
 
         });
@@ -23,6 +24,7 @@ export default class FetchExample extends React.Component {
       })
       .catch((error) =>{
         console.error(error);
+        
       });
   }
 
@@ -40,9 +42,11 @@ export default class FetchExample extends React.Component {
 
     return(
       <View style={{flex: 1, paddingTop:20}}>
-        <Text style={styles.normalText}>
-          {this.state.dataSource}
-        </Text>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={({item}) => <Text>{item.userId}, {item.firstName}</Text>}
+          keyExtractor={(item, index) => index}
+        />
       </View>
     );
   }
