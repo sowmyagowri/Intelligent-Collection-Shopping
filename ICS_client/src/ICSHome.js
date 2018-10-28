@@ -8,7 +8,33 @@ export default class FetchExample extends React.Component {
     this.state ={ isLoading: true}
   }
 
-  componentDidMount(){
+componentDidMount(){
+    return fetch('http://192.168.1.128:5000/users1/authenticate', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: 'test1',
+          userPassword: 'test2',
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({
+          isLoading: false,
+          dataSource: JSON.stringify(responseJson),
+        }, function(){
+        });
+      })
+      .catch((error) =>{
+        console.error(error);
+        
+      });
+  }
+  componentDidMount1(){
    //return fetch('http://192.168.1.128:5000/api/hello')
     return fetch('http://192.168.1.128:5000/users')
       .then((response) => response.json())
@@ -31,6 +57,25 @@ export default class FetchExample extends React.Component {
 
 
   render(){
+
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>
+      )
+    }
+
+    return(
+      <View style={{flex: 1, paddingTop:20}}>
+        <Text numberOfLines={5}>
+          {this.state.dataSource}
+        </Text>
+      </View>
+    );
+  }
+
+  render1(){
 
     if(this.state.isLoading){
       return(

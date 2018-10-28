@@ -3,16 +3,32 @@ const User = require("./ICSUserModel");;
 
 module.exports = {
     authenticate,
-    registerUser
+    registerUser,
+    getAll
 };
 
-function authenticate({ username, passwrd }) {
-    const user = await User.findOne({ username });
+async function authenticate(userParam) {
+	console.log('userId : %s', userParam['userId'] );
+	var query = { userId:userParam['userId'] };
+	const user = await User.findOne(query);
     if (user) {
-        const user1 = user.toObject();
+        if(user.userPassword === userParam['userPassword'])
+    	{
+        	const user1 = user.toObject();
         
-        return { user1};
+        	return { user1};
+        }
     }
+    /*const user = await User.findOne(username);
+    if (user) {
+    	if(user.userPassword === passwrd)
+    	{
+        	const user1 = user.toObject();
+        
+        	return { user1};
+        }
+    }*/
+    return null;
 }
 
 async function getAll() {

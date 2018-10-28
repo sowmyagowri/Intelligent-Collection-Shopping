@@ -61,10 +61,12 @@ export default class ICSLogin extends Component {
         });
   }
 
-  onPress() {
-  //  (async () => {
-    //  await this.fetchData().done();
-  //  })();
+  onPress1() {
+    (async () => {
+      await this.fetchData().done();
+    })();
+  }
+  onPress(){
     return fetch('http://192.168.1.128:5000/users1/authenticate', {
         method: 'POST',
         headers: {
@@ -73,20 +75,23 @@ export default class ICSLogin extends Component {
         },
         body: JSON.stringify({
           userID: 'test1',
-          userPassword: 'test1',
+          userPassword: 'test2',
         }),
       })
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
-        Actions.homeScene();
+        if(responseJson)
+        {
+          Actions.homeScene();
+        }
       })
       .catch((error) =>{
         console.error(error);
         
       });
-
   }
+
 
 
   render() {
