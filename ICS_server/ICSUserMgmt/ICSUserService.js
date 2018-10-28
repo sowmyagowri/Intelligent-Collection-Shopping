@@ -19,15 +19,6 @@ async function authenticate(userParam) {
         	return { user1};
         }
     }
-    /*const user = await User.findOne(username);
-    if (user) {
-    	if(user.userPassword === passwrd)
-    	{
-        	const user1 = user.toObject();
-        
-        	return { user1};
-        }
-    }*/
     return null;
 }
 
@@ -36,13 +27,17 @@ async function getAll() {
 }
 
 async function registerUser(userParam) {
-    // validate
-    if (await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
+	console.log('userId : %s', userParam['userId'] );
+	var query = { userId:userParam['userId'] };
+	const user = await User.findOne(query);
+    
+    if (user) 
+    {
+        throw 'Username "' + userParam.userId + '" is already taken';
     }
 
-    const user = new User(userParam);
+    const newUser = new User(userParam);
 
     // save user
-    await user.save();
+    await newUser.save();
 }
