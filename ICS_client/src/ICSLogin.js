@@ -20,11 +20,20 @@ import ICSStyles from './ICSStyles';
 
 export default class ICSLogin extends Component {
 
+  state ={ isLoading:true, user1: {}, uId:'', pwd:''}
   constructor(){
     super();
-    this.state ={ isLoading:true, user1: {}};
+    
+    this.uId = "";
+    this.pwd = "";
   }
 
+  handleUid = (text) => {
+      this.setState({ uId: text })
+  }
+  handlePwd = (text) => {
+      this.setState({ pwd: text })
+  }
 
   async fetchData(): Promise<void>{
     try{
@@ -66,7 +75,7 @@ export default class ICSLogin extends Component {
       await this.fetchData().done();
     })();
   }
-  onPress(){
+  login(uid, pass){
     return fetch('http://192.168.1.128:5000/users1/authenticate', {
         method: 'POST',
         headers: {
@@ -74,14 +83,13 @@ export default class ICSLogin extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userID: 'test1',
-          userPassword: 'test2',
+          userId: uid,
+          userPassword: pass,
         }),
       })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
-        if(responseJson)
+        if(!responseJson.error)
         {
           Actions.homeScene();
         }
@@ -108,6 +116,7 @@ export default class ICSLogin extends Component {
             returnKeyType={'done'}
             placeholderTextColor="black"
             underlineColorAndroid="transparent"
+            onChangeText={this.handleUid}
           />
           <TextInput
             style={ICSStyles.input}
@@ -118,12 +127,14 @@ export default class ICSLogin extends Component {
             returnKeyType={'done'}
             placeholderTextColor="black"
             underlineColorAndroid="transparent"
+            onChangeText={this.handlePwd}
           />
           <Button
             style={ICSStyles.loginButton}
-            onPress={this.onPress}
+            onPress={() => this.login(this.state.uId, this.state.pwd)}
             title="Login"
           />
+          <Text>{'user input: ' + this.state.uID}</Text>
         </View>
       </KeyboardAvoidingView>
       </ICSPage>

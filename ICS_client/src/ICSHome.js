@@ -16,8 +16,8 @@ componentDidMount(){
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userID: 'test1',
-          userPassword: 'test2',
+          userId: 'test1',
+          userPassword: 'test1',
         }),
       })
       .then((response) => response.json())
@@ -25,7 +25,7 @@ componentDidMount(){
         console.log(responseJson);
         this.setState({
           isLoading: false,
-          dataSource: JSON.stringify(responseJson),
+          dataSource: responseJson,
         }, function(){
         });
       })
@@ -36,7 +36,7 @@ componentDidMount(){
   }
   componentDidMount1(){
    //return fetch('http://192.168.1.128:5000/api/hello')
-    return fetch('http://192.168.1.128:5000/users')
+    return fetch('http://192.168.1.128:5000/users1/allRegistered')
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);

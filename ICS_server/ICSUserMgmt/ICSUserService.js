@@ -8,17 +8,19 @@ module.exports = {
 };
 
 async function authenticate(userParam) {
-	console.log('userId : %s', userParam['userId'] );
+	console.log('ICSUserService: authenticate: userId = %s', userParam['userId'] );
 	var query = { userId:userParam['userId'] };
 	const user = await User.findOne(query);
     if (user) {
         if(user.userPassword === userParam['userPassword'])
     	{
+    		console.log('ICSUserService: authenticate: Login Success');
         	const user1 = user.toObject();
         
         	return { user1};
         }
     }
+    console.log('ICSUserService: authenticate: Login Failed');
     return null;
 }
 
@@ -40,4 +42,5 @@ async function registerUser(userParam) {
 
     // save user
     await newUser.save();
+    return newUser;
 }
