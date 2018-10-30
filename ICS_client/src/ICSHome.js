@@ -25,7 +25,7 @@ componentDidMount(){
         console.log(responseJson);
         this.setState({
           isLoading: false,
-          dataSource: responseJson,
+          dataSource: JSON.stringify(responseJson),
         }, function(){
         });
       })
@@ -42,7 +42,7 @@ componentDidMount(){
         console.log(responseJson);
         this.setState({
           isLoading: false,
-          dataSource: responseJson,
+          dataSource:  JSON.stringify(responseJson),
         }, function(){
 
         });
