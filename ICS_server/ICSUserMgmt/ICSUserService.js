@@ -4,7 +4,9 @@ const User = require("./ICSUserModel");;
 module.exports = {
     authenticate,
     registerUser,
-    getAll
+    getAll,
+    findById,
+    findByAddrs
 };
 
 async function authenticate(userParam) {
