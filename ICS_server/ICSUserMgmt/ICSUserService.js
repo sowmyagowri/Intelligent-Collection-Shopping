@@ -24,6 +24,40 @@ async function authenticate(userParam) {
     return null;
 }
 
+async function findById(userParam) {
+	console.log('ICSUserService: v: userId = %s', userParam['userId'] );
+	var query = { userId:userParam['userId'] };
+	const user = await User.findOne(query);
+    if (user) {
+    		console.log('ICSUserService: findById: User found');
+        	const user1 = user.toObject();
+        
+        	return { user1};
+    }
+    console.log('ICSUserService: findById: User not found');
+    return null;
+}
+
+async function findByAddrs(userParam) {
+	console.log('ICSUserService: findByAddrs: address = %s', userParam['userAddress'] );
+	var query = { userId:/userParam['userAddress']/i };
+	var users = null;
+	await User.findOne(query).toArray(function(err, result) {
+	    if (err)
+	    {
+		    console.log(err);
+		    //throw err;
+		    
+	    }
+	    else{
+		console.log('ICSUserService: findByAddrs: User/s found within address range');
+    		console.log(result);
+		users = result;
+	    }
+    	});
+	return users;
+}
+
 async function getAll() {
     return await User.find().select('-hash');
 }
