@@ -65,18 +65,22 @@ async function getAll() {
 }
 
 async function registerUser(userParam) {
-	console.log('userId : %s', userParam['userId'] );
+	console.log('ICSUserService:registerUser: userId = %s', userParam['userId'] );
 	var query = { userId:userParam['userId'] };
 	const user = await User.findOne(query);
     
     if (user) 
     {
-        throw 'Username "' + userParam.userId + '" is already taken';
+       // throw 'Username "' + userParam.userId + '" is already taken';
+	console.log('ICSUserService: registerUser: User already exists');
+	    return null;;
     }
-
-    const newUser = new User(userParam);
-
+   else
+   {
+   	 const newUser = new User(userParam);
     // save user
-    await newUser.save();
-    return newUser;
+    	await newUser.save();
+	   console.log('ICSUserService: registerUser: New user created');
+    	return newUser;
+   }
 }
