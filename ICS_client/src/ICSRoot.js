@@ -3,6 +3,7 @@ import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 
 import LoginPage from './ICSLogin.js';
 import HomePage from './ICSHome.js';
+import RegisterPage from './ICSRegister.js';
 
 export default class ICSRoot extends Component {
   render() {
@@ -17,6 +18,11 @@ export default class ICSRoot extends Component {
 	        />
 	        <Scene key="homeScene"
 	          component={HomePage}
+	          animation='fade'
+	          hideNavBar={true}
+	        />
+		<Scene key="registerScene"
+	          component={RegisterPage}
 	          animation='fade'
 	          hideNavBar={true}
 	        />
