@@ -93,6 +93,17 @@ export default class ICSLogin extends Component {
         {
           Actions.homeScene();
         }
+        else
+        {
+          Alert.alert(
+              'Invalid Login',
+              'User id or password are incorrect.',
+              [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              ],
+              { cancelable: false }
+            )
+        }
       })
       .catch((error) =>{
         console.error(error);
