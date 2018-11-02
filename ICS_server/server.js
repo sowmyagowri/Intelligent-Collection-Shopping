@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const userController = require("./controllers/ICSUsersCntrl");
 const path = require('path');
 
 // db connection
@@ -11,11 +10,6 @@ const port = process.env.PORT || 5000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app
-  .route("/users")
-  .get(userController.listUsers)
-  .post(userController.createUser);
 
 // API calls
 app.get('/api/hello', (req, res) => {
