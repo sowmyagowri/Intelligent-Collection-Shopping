@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View ,StyleSheet } from 'react-native';
 
-export default class FetchExample extends React.Component {
+export default class ICSHome extends React.Component {
 
   constructor(props){
     super(props);

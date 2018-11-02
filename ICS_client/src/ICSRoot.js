@@ -21,7 +21,7 @@ export default class ICSRoot extends Component {
 	          animation='fade'
 	          hideNavBar={true}
 	        />
-		<Scene key="registerScene"
+			<Scene key="registerScene"
 	          component={RegisterPage}
 	          animation='fade'
 	          hideNavBar={true}

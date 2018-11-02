@@ -20,7 +20,7 @@ import ICSStyles from './ICSStyles';
 
 export default class ICSRegister extends Component {
 
-  state ={ isLoading:true, user1: {}, uId:'', pwd:'', first:'', last:'',contact:'',address:''}
+  state ={ isLoading:true, user1: {}, uId:'', pwd:'', firstName:'', lastName:'',contactNumber:'',address:''}
   constructor(){
     super();
     
@@ -33,19 +33,19 @@ export default class ICSRegister extends Component {
       this.setState({ pwd: text })
   }
   handleFirst = (text) => {
-      this.setState({ uId: text })
+      this.setState({ firstName: text })
   }
   handleLast = (text) => {
-      this.setState({ pwd: text })
+      this.setState({ lastName: text })
   }
   handleContact = (text) => {
-      this.setState({ uId: text })
+      this.setState({ contactNumber: text })
   }
   handleAddress = (text) => {
-      this.setState({ pwd: text })
+      this.setState({ address: text })
   }
 
-  register(uid, pass){
+  register(uid, pass, first, last, contact, address){
     return fetch('http://192.168.1.128:5000/users1/register', {
         method: 'POST',
         headers: {
@@ -55,6 +55,10 @@ export default class ICSRegister extends Component {
         body: JSON.stringify({
           userId: uid,
           userPassword: pass,
+          firstName: first,
+          lastName: last,
+          contactNumber: contact,
+          userAddress: address,
         }),
       })
       .then((response) => response.json())
@@ -145,8 +149,8 @@ export default class ICSRegister extends Component {
             onChangeText={this.handleAddress}
           />
           <Button
-            style={ICSStyles.loginButton}
-            onPress={() => this.register(this.state.uId, this.state.pwd, this.state.first, this.state.last, this.state.contact, this.state.address)}
+            style={ICSStyles.registerButton}
+            onPress={() => this.register(this.state.uId, this.state.pwd, this.state.firstName, this.state.lastName, this.state.contactNumber, this.state.address)}
             title="Register"
           />
         </View>

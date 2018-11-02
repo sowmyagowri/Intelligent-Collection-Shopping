@@ -56,4 +56,13 @@ export default StyleSheet.create({
     borderRadius: 20,
     zIndex: 100,
   },
+  registerButton: {
+    alignItems: 'center',
+    width: DEVICE_WIDTH - 100,
+    justifyContent: 'center',
+    backgroundColor: '#F03000',
+    height: MARGIN,
+    borderRadius: 20,
+    zIndex: 100,
+  },
 });

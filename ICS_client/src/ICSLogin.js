@@ -75,6 +75,10 @@ export default class ICSLogin extends Component {
       await this.fetchData().done();
     })();
   }
+
+  register(){
+    Actions.registerScene();
+  }
   login(uid, pass){
     return fetch('http://192.168.1.128:5000/users1/authenticate', {
         method: 'POST',
@@ -145,7 +149,11 @@ export default class ICSLogin extends Component {
             onPress={() => this.login(this.state.uId, this.state.pwd)}
             title="Login"
           />
-          <Text>{'user input: ' + this.state.uID}</Text>
+          <Button
+            style={ICSStyles.registerButton}
+            onPress={() => this.register()}
+            title="Register"
+          />
         </View>
       </KeyboardAvoidingView>
       </ICSPage>
