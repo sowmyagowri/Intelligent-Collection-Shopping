@@ -1,0 +1,37 @@
+{
+  "name": "AwesomeProject",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "@babel/core": "^7.1.2",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.0",
+    "mongoose": "^5.3.9",
+    "react": "16.3.0-alpha.1",
+    "react-native": "^0.54.0",
+    "react-native-router-flux": "^4.0.5",
+    "react-native-svg": "^8.0.8",
+    "victory-native": "^0.17.1"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.1",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.2",
+    "react-test-renderer": "16.3.0-alpha.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
