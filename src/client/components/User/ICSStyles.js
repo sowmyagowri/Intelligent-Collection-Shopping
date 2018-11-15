@@ -65,4 +65,10 @@ export default StyleSheet.create({
     borderRadius: 20,
     zIndex: 100,
   },
+  profileInfo: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+  },
 });
