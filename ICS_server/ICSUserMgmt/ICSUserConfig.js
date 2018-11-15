@@ -21,3 +21,4 @@ mongoose.Promise = global.Promise;
 
 // require any models
 require("./ICSUserModel");
+require("./ICSPostModel");
