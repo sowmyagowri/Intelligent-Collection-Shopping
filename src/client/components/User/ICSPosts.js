@@ -4,7 +4,7 @@ import { FlatList, ActivityIndicator, Text, View ,StyleSheet } from 'react-nativ
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 
-export default class ICSHistory extends React.Component {
+export default class ICSPosts extends React.Component {
 
   constructor(props){
     super(props);
@@ -49,7 +49,7 @@ render(){
           data={this.state.dataSource}
           renderItem={({item}) =>
           <View style={ICSStyles.flatview}>
-            <Text style={ICSStyles.profileInfo}>{item.firstName}{item.lastName}</Text>
+            <Text style={ICSStyles.profileInfo}>{item.userId}{" "}{item.userAddress}</Text>
           </View>
           }
           keyExtractor={(item, index) => item.userId}

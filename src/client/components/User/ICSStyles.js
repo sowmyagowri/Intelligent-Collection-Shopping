@@ -71,4 +71,9 @@ export default StyleSheet.create({
     margin: 10,
     color: '#ffffff',
   },
+  flatview: {
+    justifyContent: 'center',
+    paddingTop: 30,
+    borderRadius: 2,
+  },
 });

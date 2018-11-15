@@ -7,6 +7,7 @@ import HomePage from './ICSHome.js';
 import RegisterPage from './ICSRegister.js';
 import ProfilePage from './ICSProfile.js';
 import HistoryPage from './ICSHistory.js';
+import PostsPage from './ICSPosts.js';
 
 const TabIcon = ({ selected, title }) => {
   	return (
@@ -46,7 +47,7 @@ export default class ICSRoot extends Component {
 		            <Scene
 		              key="profileScene"
 		              component={ProfilePage}
-		              title="Profile1"
+		              title="User Profile"
 		              hideNavBar={true}
 		              initial={true}
 		            />
@@ -55,7 +56,15 @@ export default class ICSRoot extends Component {
 		            <Scene
 		              key="historyScene"
 		              component={HistoryPage}
-		              title="History1"
+		              title="User History"
+		              hideNavBar={true}
+		            />
+            	</Scene>
+            	<Scene key="userPosts" title="Posts" icon={TabIcon}>
+		            <Scene
+		              key="postsScene"
+		              component={PostsPage}
+		              title="User Posts"
 		              hideNavBar={true}
 		            />
             	</Scene>
