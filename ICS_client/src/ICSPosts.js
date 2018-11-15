@@ -4,7 +4,7 @@ import { FlatList, ActivityIndicator, Text, View ,StyleSheet } from 'react-nativ
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 
-export default class ICSHistory extends React.Component {
+export default class ICSPosts extends React.Component {
 
   constructor(props){
     super(props);
