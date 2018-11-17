@@ -8,6 +8,7 @@ import RegisterPage from './ICSRegister.js';
 import ProfilePage from './ICSProfile.js';
 import HistoryPage from './ICSHistory.js';
 import PostsPage from './ICSPosts.js';
+import MapPage from './ICSMap.js';
 
 const TabIcon = ({ selected, title }) => {
   	return (
@@ -33,6 +34,11 @@ export default class ICSRoot extends Component {
 	          animation='fade'
 	          hideNavBar={true}
 	        />
+	        <Scene key="MapScene"
+              component={MapPage}
+              animation='fade'
+              hideNavBar={true}
+            />
 			<Scene key="registerScene"
 	          component={RegisterPage}
 	          animation='fade'
