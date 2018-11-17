@@ -47,7 +47,7 @@ export default class ICSLogin extends Component {
   login(uid, pass){
 
     console.log("in login")
-    return fetch('http://10.0.0.106:5000/users1/authenticate', {
+    return fetch('http://10.250.106.200:5000/users1/authenticate', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

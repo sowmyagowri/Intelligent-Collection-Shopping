@@ -9,7 +9,7 @@ export default class ICSHome extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://10.0.0.106:5000/users1/allRegistered')
+    return fetch('http://10.250.106.200:5000/users1/allRegistered')
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
