@@ -26,7 +26,7 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.use('/users1', require('./ICSUserMgmt/ICSUserCntrl'));
-app.use('/products', require('./ICSUserMgmt/ICSProductCntrl'));
+app.use('/product', require('./ICSUserMgmt/ICSProductCntrl'));
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
