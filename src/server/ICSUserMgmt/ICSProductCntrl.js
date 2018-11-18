@@ -9,7 +9,7 @@ router.get('/addproduct', addproduct);
 module.exports = router;
 
 function listall(req, res,next) {
-	console.log('ICSProductCntrl' );
+	console.log('ICSProductCntrl List All' );
 		
     productService.listall()
     .then(products => res.json(products))
