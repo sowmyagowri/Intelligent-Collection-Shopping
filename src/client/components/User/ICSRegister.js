@@ -46,7 +46,7 @@ export default class ICSRegister extends Component {
   }
 
   register(uid, pass, first, last, contact, address){
-    return fetch('http://192.168.1.128:5000/users1/register', {
+    return fetch('http://172.27.238.145:5000/users1/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

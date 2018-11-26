@@ -13,8 +13,6 @@ import {
 } from 'react-native';
 
 import {Actions, ActionConst} from 'react-native-router-flux';
-
-
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 
@@ -47,7 +45,7 @@ export default class ICSLogin extends Component {
   login(uid, pass){
 
     console.log("in login")
-    return fetch('http://10.250.106.200:5000/users1/authenticate', {
+    return fetch('http://172.27.238.145:5000/users1/authenticate', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -62,7 +60,7 @@ export default class ICSLogin extends Component {
       .then((responseJson) => {
         if(!responseJson.error)
         {
-          Actions.homeScene();
+          Actions.homeScene( {userIdProps: uid} );
         }
         else
         {

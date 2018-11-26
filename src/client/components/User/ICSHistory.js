@@ -12,7 +12,7 @@ export default class ICSHistory extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://192.168.1.128:5000/users1/allRegistered')
+    return fetch('http://172.27.238.145:5000/users1/allRegistered')
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);

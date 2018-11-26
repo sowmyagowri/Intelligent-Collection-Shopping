@@ -1,81 +1,76 @@
-import React from 'react';
-import { FlatList, ActivityIndicator, Text, View ,StyleSheet } from 'react-native';
+/**
+* This is the Home page
+**/
 
-export default class ICSHome extends React.Component {
+// React native and others libraries imports
+import React, { Component } from 'react';
+import { Image } from 'react-native';
+import { Container, Content, View, Button, Left, Right, Icon, Card, CardItem, cardBody } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 
-  constructor(props){
-    super(props);
-    this.state ={ isLoading: true}
-  }
-
-  componentDidMount(){
-    return fetch('http://10.250.106.200:5000/users1/allRegistered')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        this.setState({
-          isLoading: false,
-          dataSource:  JSON.stringify(responseJson),
-        }, function(){
-
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-        
-      });
-  }
+// Our custom files and classes import
+import Text from '../component/Text';
+import Navbar from '../component/Navbar';
+import SideMenu from '../component/SideMenu';
+import SideMenuDrawer from '../component/SideMenuDrawer';
+import CategoryBlock from '../component/CategoryBlock';
 
 
+export default class Home extends Component {
 
-  render(){
-
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
-        </View>
-      )
-    }
-
+  render() {
+    var left = (
+      <Left style={{flex:1}}>
+        <Button onPress={() => this._sideMenuDrawer.open()} transparent>
+          <Icon name='ios-menu-outline' />
+        </Button>
+      </Left>
+    );
+    var right = (
+      <Right style={{flex:1}}>
+        <Button onPress={() => Actions.search()} transparent>
+          <Icon name='ios-search-outline' />
+        </Button>
+        <Button onPress={() => Actions.cart()} transparent>
+          <Icon name='ios-cart' />
+        </Button>
+      </Right>
+    );
     return(
-      <View style={{flex: 1, paddingTop:20}}>
-        <Text numberOfLines={5}>
-          {this.state.dataSource}
-        </Text>
-      </View>
+      <SideMenuDrawer ref={(ref) => this._sideMenuDrawer = ref}>
+          <Container>
+            <Navbar left={left} right={right} title="Welcome" />
+            <Content>
+              {this.renderCategories()}
+            </Content>
+          </Container>
+      </SideMenuDrawer>
     );
   }
 
-  render1(){
-
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
-        </View>
-      )
+  renderCategories() {
+    let cat = [];
+    for(var i=0; i<categories.length; i++) {
+      cat.push(
+        <CategoryBlock key={categories[i].id} id={categories[i].id} image={categories[i].image} title={categories[i].title} subtitle={categories[i].subtitle} />
+      );
     }
-
-    return(
-      <View style={{flex: 1, paddingTop:20}}>
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={({item}) => <Text>{item.userId}, {item.firstName}</Text>}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
-    );
+    return cat;
   }
+
 }
 
-const styles = StyleSheet.create({
-
-  normalText: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+var categories = [
+  {
+    id: 1,
+    title: 'Buy',
+    subtitle: 'Shop Now',
+    image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_489/v1500284127/pexels-photo-497848_yenhuf.jpg'
   },
-
-});
+  {
+    id: 2,
+    title: 'Sell',
+    subtitle: 'Sell Now',
+    image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_460/v1500284237/pexels-photo-324030_wakzz4.jpg'
+  }
+];

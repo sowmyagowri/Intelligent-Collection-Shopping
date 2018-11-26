@@ -9,6 +9,8 @@ import ProfilePage from './ICSProfile.js';
 import HistoryPage from './ICSHistory.js';
 import PostsPage from './ICSPosts.js';
 import MapPage from './ICSMap.js';
+import Category from './Category.js';
+import Sell from './Sell.js';
 
 const TabIcon = ({ selected, title }) => {
   	return (
@@ -39,11 +41,16 @@ export default class ICSRoot extends Component {
               animation='fade'
               hideNavBar={true}
             />
-			<Scene key="registerScene"
+					<Scene key="registerScene"
 	          component={RegisterPage}
 	          animation='fade'
 	          hideNavBar={true}
 	        />
+					<Scene key="sell"
+		        	component={Sell}
+							animation='fade'
+							hideNavBar={true}
+		      />
 	        <Scene key="tabbar"
           	  tabs={true}
           	  hideNavBar={true}
@@ -71,6 +78,14 @@ export default class ICSRoot extends Component {
 		              key="postsScene"
 		              component={PostsPage}
 		              title="User Posts"
+		              hideNavBar={true}
+		            />
+            	</Scene>
+							<Scene key="category" title="Posts" icon={TabIcon}>
+		            <Scene
+		              key="productList"
+		              component={Category}
+		              title="Product List"
 		              hideNavBar={true}
 		            />
             	</Scene>
