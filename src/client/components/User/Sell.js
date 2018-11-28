@@ -45,36 +45,39 @@ export default class Sell extends Component {
         this.setState({ price: text })
     }
 
-    postProduct(productName, category){
-  
-      console.log("in login")
-      return fetch('http://172.27.238.145:5000/products/addproduct', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            productName: productName,
-            category: category,
-          }),
+    postProduct(){
+        
+        console.log("in post product");
+        
+        return fetch('http://172.27.238.145:5000/products/addproduct', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productName: this.state.productName,
+                category: this.state.category,
+                quantity: this.state.quantity,
+                price: this.state.price,
+            }),
         })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          if(!responseJson.error)
-          {
-            Alert.alert(
-                'Product Posted Successfully!',
-                [
-                  {text: 'Ok', onPress: () => Actions.homeScene(), style: 'default'},
-                ],
-                { cancelable: false }
-              )
-            //Actions.homeScene();
-          }
+            .then((response) => response.json())
+            .then((responseJson) => {
+            if(!responseJson.error)
+            {
+                Alert.alert(
+                    'Product Posted Successfully!',
+                    [
+                    {text: 'Ok', onPress: () => Actions.homeScene(), style: 'default'},
+                    ],
+                    { cancelable: false }
+                )
+                //Actions.homeScene();
+            }
         })
         .catch((error) =>{
-          console.error(error);
+        console.error(error);
         });
     }
   
@@ -113,7 +116,7 @@ export default class Sell extends Component {
                 <Button 
                     label="Post Product"
                     styles={{button: styles.primaryButton, label: styles.buttonWhiteText}} 
-                    onPress={this.postProduct.bind(this.state.productName, this.state.category)} 
+                    onPress={this.postProduct.bind()} 
                 />
             </Container>
         </Container>

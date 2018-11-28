@@ -11,11 +11,11 @@ const ICSProductSchema = new Schema({
     required: true
   },
   quantity: {
-    type: Number,
+    type: String,
     required: true
   },
   price: {
-    type: Number,
+    type: String,
     required: true
   },
   uploadDate: {
@@ -23,7 +23,7 @@ const ICSProductSchema = new Schema({
   },
   sellerUserId: {
     type: String,
-    required: true
+    // required: true
   },
   buyerUserId: {
     type: String

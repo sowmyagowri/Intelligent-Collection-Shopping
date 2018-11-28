@@ -4,24 +4,24 @@ const productService = require('./ICSProductService');
 
 // routes
 router.get('/listall', listall);
-router.get('/addproduct', addproduct);
+router.post('/addproduct', addproduct);
 router.post('/buyUpdate', buyUpdate);
 
 module.exports = router;
 
 function listall(req, res,next) {
 	console.log('ICSProductCntrl List All' );
-		
+	
     productService.listall()
     .then(products => res.json(products))
     .catch(err => next(err));
 }
 
 function addproduct(req, res, next) {
-	console.log('ICSProductCntrl' );
-		
-    productService.addproduct()
-        .then(products => products ? console.log(products) : res.status(400).json({ error: 'Products not found' }))
+        
+    console.log('ICSProductCntrl:', (JSON.stringify(req.body)) );
+    productService.addproduct(req.body)
+        .then(products => products ? console.log(products) : res.status(400).json({ error: 'Products not added' }))
         .catch(err => next(err));
 }
 

@@ -60,7 +60,7 @@ export default class ICSLogin extends Component {
       .then((responseJson) => {
         if(!responseJson.error)
         {
-          Actions.homeScene( {userIdProps: uid} );
+          Actions.homeScene();
         }
         else
         {
