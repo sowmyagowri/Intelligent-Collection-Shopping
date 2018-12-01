@@ -27,7 +27,7 @@ async function addproduct(userParam) {
         quantity: userParam['quantity'],
         price: userParam['price'],
         uploadDate: new Date(),
-    //     sellerUserId: 'henry',
+        sellerUserId: userParam['sellerUserId'],
     //     buyerUserId: 'david',
     //     soldFlag: 'Y',
     //     zipcode: 94086,
@@ -36,12 +36,7 @@ async function addproduct(userParam) {
     }
 
     const addedproduct = await products.create(userData);
-    console.log("Added product is:", addedproduct);
-    if (addedproduct) {
-        console.log(addedproduct);
-    }
-    console.log('ICSproductsService: No products in DB');
-    return null;
+    return addedproduct;
 }
 
 async function buyUpdate(productParam) {

@@ -7,7 +7,10 @@ import {
     Text,
     TouchableHighlight,
     TextInput,
+    AsyncStorage,
+    ActivityIndicator
   } from 'react-native';
+import ICSPage from './ICSPage';
 
 export default class Sell extends Component {
 
@@ -15,6 +18,8 @@ export default class Sell extends Component {
       super();
       
       this.state = {
+        isLoading: true,
+        userIdString: '',
         productName: "",
         category: "",
         quantity: "",
@@ -45,10 +50,29 @@ export default class Sell extends Component {
         this.setState({ price: text })
     }
 
+    async getKey() {
+        try {
+
+            const valueU = await AsyncStorage.getItem('userObj');
+            const users = JSON.parse(valueU);
+            console.log("the user id from storage", users['user1'].userId);
+            this.setState({userIdString: users['user1'].userId});
+    
+        } catch (error) {
+          console.log("Error retrieving data" + error);
+        }
+      }
+
+      componentDidMount(){
+        this.getKey().then(() =>{
+            this.setState({isLoading: false});
+        });
+      }
+
     postProduct(){
         
         console.log("in post product");
-        
+    
         return fetch('http://172.27.238.145:5000/products/addproduct', {
             method: 'POST',
             headers: {
@@ -60,29 +84,45 @@ export default class Sell extends Component {
                 category: this.state.category,
                 quantity: this.state.quantity,
                 price: this.state.price,
+                sellerUserId: this.state.userIdString
             }),
         })
-            .then((response) => response.json())
-            .then((responseJson) => {
-            if(!responseJson.error)
-            {
-                Alert.alert(
-                    'Product Posted Successfully!',
-                    [
-                    {text: 'Ok', onPress: () => Actions.homeScene(), style: 'default'},
-                    ],
-                    { cancelable: false }
-                )
-                //Actions.homeScene();
-            }
+            .then((response) => {
+                console.log(response);
+                response.json();
+            })
+            .then( (responseJson) => {
+                console.log(responseJson);
+                console.log(responseJson.error);
+                if(!responseJson.error)
+                {
+                    Alert.alert(
+                        'Product Posted Successfully!',
+                        [
+                        {text: 'Ok', onPress: () => Actions.homeScene(), style: 'default'},
+                        ],
+                        { cancelable: false }
+                    )
+                }
         })
         .catch((error) =>{
-        console.error(error);
+            console.error(error);
         });
     }
   
     render() {
-      return (
+
+    if(this.state.isLoading){
+        return(
+            <ICSPage>
+            <View style={{flex: 1, padding: 20}}>
+            <ActivityIndicator/>
+            </View>
+            </ICSPage>
+        )
+    }
+
+       return (
         <Container>
             <Container>
                 <Label text="Product Name" />

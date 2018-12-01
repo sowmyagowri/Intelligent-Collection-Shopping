@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Dimensions from 'Dimensions';
 import {
+  AsyncStorage,
   KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
@@ -13,18 +14,21 @@ import {
 } from 'react-native';
 
 import {Actions, ActionConst} from 'react-native-router-flux';
+
+
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 
 export default class ICSLogin extends Component {
 
-  state ={ isLoading:true, user1: {}, uId:'', pwd:''}
+  state ={ isLoading:true, user1: {}, uId:'', pwd:'',  myKey: '123'}
   constructor(){
     super();
     
     this.state = {
       uId: "",
       pwd: "",
+	  myKey: '123',
     }
     this.handleUid = this.handleUid.bind(this);
     this.handlePwd = this.handlePwd.bind(this)
@@ -37,9 +41,19 @@ export default class ICSLogin extends Component {
   handlePwd = (text) => {
       this.setState({ pwd: text })
   }
-
+  
   register(){
     Actions.registerScene();
+  }
+
+  saveData(key, value){
+    try{
+            AsyncStorage.setItem(key, value);
+          }
+          catch(error)
+          {
+            console.error('AsyncStorage error : ' + error.message);
+          }
   }
 
   login(uid, pass){
@@ -60,6 +74,7 @@ export default class ICSLogin extends Component {
       .then((responseJson) => {
         if(!responseJson.error)
         {
+          this.saveData('userObj', JSON.stringify(responseJson));
           Actions.homeScene();
         }
         else
@@ -80,12 +95,10 @@ export default class ICSLogin extends Component {
       });
   }
 
-
-
   render() {
     return (
       <ICSPage>
-      <KeyboardAvoidingView behavior="padding" style={ICSStyles.loginInputContainer}>
+      
         <View style={ICSStyles.inputWrapper}>
           <TextInput
             style={ICSStyles.input}
@@ -98,6 +111,8 @@ export default class ICSLogin extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handleUid}
           />
+		  <Text></Text>
+          <Text></Text>
           <TextInput
             style={ICSStyles.input}
             placeholder="password"
@@ -109,18 +124,22 @@ export default class ICSLogin extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handlePwd}
           />
+		  <Text></Text>
+          <Text></Text>
           <Button
             style={ICSStyles.loginButton}
             onPress={() => this.login(this.state.uId, this.state.pwd)}
             title="Login"
           />
+          <Text></Text>
+          <Text></Text>
           <Button
             style={ICSStyles.registerButton}
             onPress={() => this.register()}
             title="Register"
           />
         </View>
-      </KeyboardAvoidingView>
+      
       </ICSPage>
     );
   }
