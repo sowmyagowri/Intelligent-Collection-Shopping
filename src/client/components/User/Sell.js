@@ -87,7 +87,7 @@ export default class Sell extends Component {
                 sellerUserId: this.state.userIdString
             }),
         })
-            .then((response) => {
+        .then((response) => {
                 console.log(response);
                 response.json();
             })
