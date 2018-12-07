@@ -1,3 +1,12 @@
+## Intelligent Collection Shopping
+### Team Members
+1. [Sowmya Gowrishankar](https://github.com/sowmyagowri)
+2. [Harshada Bhide-Apte](https://github.com/HarshadaBhide)
+3. [Rucha Apte](https://github.com/ruchaapte)
+4. [Anup Kulkarni](https://github.com/anupkv1)
+
+### Learn about the product at: https://www.youtube.com/watch?v=YWfeIMzLUk4
+
 # Steps for application
 
 ### Emulator:
@@ -24,4 +33,4 @@ node server.js
 cd into project folder
 react-native run-android
 
-If error in building the app, try upgrading react-native
+If there is error in building the app, try upgrading react-native
