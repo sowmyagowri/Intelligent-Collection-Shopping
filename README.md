@@ -5,7 +5,7 @@
 3. [Rucha Apte](https://github.com/ruchaapte)
 4. [Anup Kulkarni](https://github.com/anupkv1)
 
-### Learn about the product at: https://www.youtube.com/watch?v=YWfeIMzLUk4
+### Learn about the product at: https://www.youtube.com/watch?v=LxSKf8WRJOc
 
 # Steps for application
 
