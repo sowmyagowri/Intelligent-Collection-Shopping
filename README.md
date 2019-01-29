@@ -7,6 +7,9 @@
 
 ### Learn about the product at: https://www.youtube.com/watch?v=LxSKf8WRJOc
 
+### Application Flow
+![ics flowchart](https://user-images.githubusercontent.com/25673997/51929122-5346b280-23ac-11e9-8344-0ead926c3769.png)
+
 # Steps for application
 
 ### Emulator:
@@ -23,7 +26,6 @@ In project directory:
 npm install
 
 yarn
-
 
 ### To start the server :
 cd into project folder\src\server
