@@ -10,6 +10,9 @@
 ### Application Flow
 ![ics flowchart](https://user-images.githubusercontent.com/25673997/51929122-5346b280-23ac-11e9-8344-0ead926c3769.png)
 
+### Architecture
+![architecture](https://user-images.githubusercontent.com/25673997/51929248-9c970200-23ac-11e9-80f1-33166c663624.png)
+
 # Steps for application
 
 ### Emulator:
