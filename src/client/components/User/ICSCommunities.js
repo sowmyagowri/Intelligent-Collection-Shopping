@@ -1,12 +1,14 @@
 import React from 'react';
 import { AsyncStorage, FlatList, ActivityIndicator, Text, View ,StyleSheet, Image, ImageBackground, YellowBox } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import { Header, Icon, Item, Input } from 'native-base';
+import {Actions, ActionConst} from 'react-native-router-flux';
 
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 import bgSrc from '../images/background.jpg';
 
-export default class ICSPosts extends React.Component {
+export default class ICSCommunities extends React.Component {
 
   constructor(props){
     super(props);
@@ -37,14 +39,14 @@ export default class ICSPosts extends React.Component {
   }
 
   componentWillReceiveProps(){
-    return fetch('http://10.0.2.2:5000/products/getById', {
+    return fetch('http://10.0.2.2:5000/communities/getById', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          sellerUserId: this.userId,
+          userId: this.userId,
         }),
       })
       .then((response) => response.json())
@@ -65,14 +67,14 @@ export default class ICSPosts extends React.Component {
   }
   componentDidMount(){
     this.getKey().then(() =>{
-    return fetch('http://10.0.2.2:5000/products/getById', {
+    return fetch('http://10.0.2.2:5000/communities/getById', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          sellerUserId: this.userId,
+          userId: this.userId,
         }),
       })
       .then((response) => response.json())
@@ -93,27 +95,14 @@ export default class ICSPosts extends React.Component {
       });
   }
 
-  getImage(prodName)
-  {
+  displaySearch(zip){
+      AsyncStorage.setItem('currentZip', zip);
+      Actions.searchScene();
+  }
 
-    if(prodName.toUpperCase() == 'MOP'){
-      return 'https://www.randomlists.com/img/things/mop.jpg';}
-    if(prodName.toUpperCase() == 'WATER BOTTLE' || prodName.toUpperCase() == 'WATER' ||  prodName.toUpperCase() == 'BOTTLE'){
-      return 'https://www.randomlists.com/img/things/water_bottle.jpg';}
-    if(prodName.toUpperCase() == 'FORK' || prodName.toUpperCase() == 'SPOON'){          
-      return 'https://www.randomlists.com/img/things/plastic_fork.jpg';}
-    if(prodName.toUpperCase() == 'TRAY'){
-      return 'https://www.randomlists.com/img/things/ice_cube_tray.jpg';}
-    if(prodName.toUpperCase() == 'MILK'){
-      return 'https://www.randomlists.com/img/things/milk.jpg';}
-    if(prodName.toUpperCase() == 'SHAMPOO' || prodName.toUpperCase() == 'CREAM' || prodName.toUpperCase() == 'CONDITIONER'){
-      return 'https://www.randomlists.com/img/things/shampoo.jpg';}
-    if(prodName.toUpperCase() == 'KNIFE' || prodName.toUpperCase() == 'CUTTER'){
-      return 'https://www.randomlists.com/img/things/knife.jpg';}
-    if(prodName.toUpperCase() == 'SCOTCH TAPE'){
-      return 'https://www.randomlists.com/img/things/scotch_tape.jpg';}
-
-    return 'http://delishus.fi/wp-content/themes/delishus10/img/veg.png';
+  displayPost(zip){
+      AsyncStorage.setItem('currentZip', zip);
+      Actions.ComuSellScene();
   }
 
 render(){
@@ -133,28 +122,22 @@ render(){
       <View style={{flex: 1, paddingTop:20}}>
       <Text></Text>
           <Text></Text>
-          <Text style={ICSStyles.titleText}>Current Posts </Text>
+          <Text style={ICSStyles.titleText}>My communities</Text>
           <Text></Text>
           <Text></Text>
           <List>
             <FlatList
               data={this.state.dataSource}
-              renderItem={({item}) =>(
-                  <ListItem 
-                      roundAvatar
-                      title={item.productName} 
-                      subtitle={
-                          <View style={ICSStyles.listSubtitle}>
-                            <Text>{item.category}</Text>
-                            <Text>{item.quantity}</Text>
-                            <Text>{item.price}</Text>
-                          </View>
-                        }
-                      avatar={{uri:this.getImage(item.productName)}}
-                      />
-                )
-              
-              }
+              renderItem={({item}) =>
+      <View style={ICSStyles.flatview}>
+       <Icon name="ios-add" onPress={() => this.displayPost(item.zip)} />
+        <Text style={ICSStyles.listItem}>{item.name}</Text>
+         <Text style={ICSStyles.listItem}>{item.zip}</Text>
+         <Icon name="search" onPress={() => this.displaySearch(item.zip)} />
+         
+         
+      </View>
+      }
               keyExtractor={(item, index) => item.userId}
             />
           </List>

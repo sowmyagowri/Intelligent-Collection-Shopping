@@ -8,8 +8,8 @@ module.exports = {
 };
 
 async function findById1(userParam) {
-	console.log('ICSPostService:findById: userId = %s', userParam['userId'] );
-	var query = { userId:userParam['userId'] };
+	console.log('ICSPostService:findById: sellerUserId = %s', userParam['sellerUserId'] );
+	var query = { sellerUserId:userParam['sellerUserId'] };
     var posts = null;
 	await Post.find(query, function(err, posts1){
         if (err)
@@ -33,8 +33,8 @@ async function findById1(userParam) {
 }
 
 async function findById(userParam) {
-    console.log('ICSPostService:findById: userId = %s', userParam['userId'] );
-    var query = { userId:userParam['userId'] };
+    console.log('ICSPostService:findById: sellerUserId = %s', userParam['sellerUserId'] );
+    var query = { sellerUserId:userParam['sellerUserId'] };
     return await Post.find(query);
 }
 
@@ -44,8 +44,8 @@ async function getAll() {
 }
 
 async function createPost(userParam) {
-    console.log('ICSPostService:createPost: userId = %s', userParam['userId'] );
-    var query = { userId:userParam['userId'] };
+    console.log('ICSPostService:createPost: sellerUserId = %s', userParam['sellerUserId'] );
+    var query = { sellerUserId:userParam['sellerUserId'] };
      const newPost = new Post(userParam);
     // save user
         await newPost.save();

@@ -24,9 +24,9 @@ export default class Category extends Component {
       };
   }
 
-  componentDidMount() {
+  componentWillMount() {
 
-    return fetch('http://172.27.238.145:5000/products/listall', {
+    return fetch('http://10.0.2.2:5000/products/listall', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -38,6 +38,44 @@ export default class Category extends Component {
 
     console.log("responsejson--------->", responseJson.allproducts);
 
+    // debugger;
+
+    let allProd = responseJson.allproducts;
+
+
+    for(item in allProd){
+
+       if(allProd[item].hasOwnProperty('picture')){
+         let pictName = allProd[item].picture;
+
+
+        //  <Image source={{uri: 'http://localhost:5000/productImages/${this.props.product.picture}'}} style={style.image}/>
+        // debugger;
+         //var pic = `../../../server/productImages/${pictName}`;
+         //console.log(pic);
+         //let requireString = 'require(\''+pic + '\')';
+        // debugger;  
+         //var obj = JSON.parse(requireString);
+         //allProd[item].picture  = obj;
+
+         var imageList = [{
+          'mop.jpg':'https://www.randomlists.com/img/things/mop.jpg',
+          'water_bottle.jpg':'https://www.randomlists.com/img/things/water_bottle.jpg',
+          'plastic_fork.jpg':'https://www.randomlists.com/img/things/plastic_fork.jpg',
+          'ice_cube_tray.jpg':'https://www.randomlists.com/img/things/ice_cube_tray.jpg',
+          'milk.jpg':'https://www.randomlists.com/img/things/milk.jpg',
+          'shampoo.jpg':'https://www.randomlists.com/img/things/shampoo.jpg',
+          'knife.jpg':'https://www.randomlists.com/img/things/knife.jpg',
+          'scotch_tape.jpg':'https://www.randomlists.com/img/things/scotch_tape.jpg'
+       }]
+        allProd[item].picture = imageList[0][pictName];
+       // debugger;
+//         allProd[item].picture = `../../../server/productImages/${pictName}`;
+         // allProd[item].picture = 'https://www.randomlists.com/img/things/water_bottle.jpg';
+          console.log("picture",allProd[item].picture);
+       } 
+
+    }
       
       if(!responseJson.error)
       {
@@ -56,7 +94,7 @@ export default class Category extends Component {
         //   {id: 29, title: 'White Shirt', categoryId: 2, categoryTitle: 'WOMEN', price: '12$', image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_300/v1500284127/pexels-photo-497848_yenhuf.jpg', description: "Hello there, i'm a cool product with a heart of gold."},
         //   {id: 16, title: 'Tie', categoryId: 1, categoryTitle: 'KIDS', price: '2$', image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_300/v1500284127/pexels-photo-497848_yenhuf.jpg', description: "Hello there, i'm a cool product with a heart of gold."},
         // ];
-        this.setState({items: responseJson.allproducts});
+        this.setState({items: allProd});
       }
       else
       {
@@ -73,7 +111,22 @@ export default class Category extends Component {
     .catch((error) =>{
       console.error(error);
       
-    });
+    });    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
   }
 
   render() {

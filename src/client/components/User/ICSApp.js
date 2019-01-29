@@ -7,14 +7,14 @@ import {
   Image,
 } from 'react-native';
 
-  import ICSRoot from './ICSRoot';
-
+import ICSRoot from './ICSRoot';
 
 export default class ICSApp extends Component {
   render() {
     return (
       <View style={styles.container}>
         <ICSRoot />
+        
       </View>
     );
   }

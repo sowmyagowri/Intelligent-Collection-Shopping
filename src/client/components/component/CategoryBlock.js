@@ -17,15 +17,14 @@ export default class CategoryBlock extends Component {
       <View style={{flex:1}}>
         <TouchableOpacity
           onPress={this._onPress.bind(this)}
-          activeOpacity={0.9}
+          activeOpacity={0.9} 
         >
-          <View>
-            <Image style={styles.image} source={{uri: this.props.image}} />
+          <View style={styles.height}>
             <View style={styles.overlay} />
             <View style={styles.border} />
             <View style={styles.text}>
               <Text style={styles.title}>{this.props.title}</Text>
-              <Text style={styles.subtitle}>{this.props.subtitle}</Text>
+              <Text style={styles.subtitle}>Shop Now</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -34,11 +33,17 @@ export default class CategoryBlock extends Component {
   }
 
   _onPress() {
-    if (this.props.id == '1'){
-      Actions.category({id: this.props.id, title: this.props.title});
+    if(this.props.id == 2)
+    {
+        Actions.sellScene();
     }
-    if (this.props.id == '2'){
-      Actions.sell({id: this.props.id, title: this.props.title, userIdProps: this.props.userIdProps});
+    else if(this.props.id == 1)
+    {
+        Actions.productList();
+    }
+    else
+    {
+      Actions.category({id: this.props.id, title: this.props.title});
     }
   }
 }
@@ -53,12 +58,12 @@ const styles = {
   },
   title: {
     textAlign: 'center',
-    color: '#fdfdfd',
+    color: '#000000',
     fontSize: 32
   },
   subtitle: {
     textAlign: 'center',
-    color: '#fdfdfd',
+    color: '#0080FF',
     fontSize: 16,
     fontWeight: '100',
     fontStyle: 'italic'
@@ -69,7 +74,6 @@ const styles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(30, 42, 54, 0.4)'
   },
   border: {
     position: 'absolute',
@@ -78,11 +82,13 @@ const styles = {
     right: 10,
     bottom: 10,
     borderWidth: 1,
-    borderColor: 'rgba(253, 253, 253, 0.2)'
+    borderColor: 'rgba(0, 0, 0, 0.5)'
   },
-  image: {
+  height: {
     height: 300,
     width: null,
-    flex: 1
+    flex: 1,
+    backgroundColor: 'rgba(255,255,255, 0.9)'
+
   }
 };

@@ -1,10 +1,18 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const userController = require("./controllers/ICSUsersCntrl");
 const path = require('path');
 
 // db connection
-//require("./config/user_db");
+var mongoose = require('mongoose');
+
+// replace the uri string with your connection string.
+const connStr = "mongodb://admin:admin123@ds111718.mlab.com:11718/easybuy"
+mongoose.connect(connStr, { useNewUrlParser: true}, function(err) {
+  if (err) throw err;
+  else {
+      console.log('Successfully connected to MongoDB');
+  }
+});
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,14 +22,12 @@ app.use(bodyParser.json());
 
 // API calls
 app.get('/api/hello', (req, res) => {
-  console.log('server: api/hello:' );
   res.send({ express: 'Hello From my ICS server' });
 });
 
 app.use('/users1', require('./ICSUserMgmt/ICSUserCntrl'));
-app.use('/posts', require('./ICSUserMgmt/ICSPostCntrl'));
 app.use('/products', require('./ICSUserMgmt/ICSProductCntrl'));
-app.use('/communities', require('./ICSUserMgmt/ICSCommunityCntrl'));
+app.use('/posts', require('./ICSUserMgmt/ICSPostCntrl'));
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files

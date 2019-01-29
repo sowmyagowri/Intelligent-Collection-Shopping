@@ -1,4 +1,3 @@
-// React native and others libraries imports
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import {
@@ -16,7 +15,7 @@ import {
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 
-export default class Sell extends Component {
+export default class ICSAddCommunity extends Component {
 
     constructor(){
       super();
@@ -24,38 +23,16 @@ export default class Sell extends Component {
       this.state = {
         isLoading: true,
         userIdString: '',
-        productName: "",
-        category: "",
-        quantity: "",
-        price: "",
-        sellerUserId: "",
-        zip:"",
-        picture: ""
+        name: "",
+        zip:""
       }
-      this.handleproductName = this.handleproductName.bind(this);
-      this.handlecategory = this.handlecategory.bind(this);
-      this.handlequantity = this.handlequantity.bind(this);
-      this.handleprice = this.handleprice.bind(this);
+      this.handleName = this.handleName.bind(this);
       this.handlezip = this.handlezip.bind(this);
-      this.postProduct = this.postProduct.bind(this);
-      this.zipCode = "123",
       this.uId = "test1"
     }
   
-    handleproductName = (text) => {
-        this.setState({ productName: text })
-    }
-
-    handlecategory = (text) => {
-        this.setState({ category: text })
-    }
-
-    handlequantity = (text) => {
-        this.setState({ quantity: text })
-    }
-
-    handleprice = (text) => {
-        this.setState({ price: text })
+    handleName = (text) => {
+        this.setState({ name: text })
     }
 
     handlezip = (text) => {
@@ -67,10 +44,7 @@ export default class Sell extends Component {
 
             const valueU = await AsyncStorage.getItem('userObj');
             const users = JSON.parse(valueU);
-            console.log("the user id from storage", users['user1'].userId);
-          //  this.setState({userIdString: users['user1'].userId});
             this.uId = users['user1'].userId;
-            this.zipCode = users['user1'].userAddress;
     
         } catch (error) {
           console.log("Error retrieving data" + error);
@@ -83,23 +57,18 @@ export default class Sell extends Component {
         });
       }
 
-    postProduct(){
+    addCommunity(){
         
-        console.log("in post product");
-    
-        return fetch('http://10.0.2.2:5000/products/registerProduct', {
+        return fetch('http://10.0.2.2:5000/communities/register', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                productName: this.state.productName,
-                category: this.state.category,
-                quantity: this.state.quantity,
-                price: this.state.price,
-                zipcode: this.zipCode,
-                sellerUserId: this.uId
+                name: this.state.name,
+                zip: this.state.zip,
+                userId: this.uId
             }),
         }).then((response) => response.json())
             .then( (responseJson) => {
@@ -107,14 +76,14 @@ export default class Sell extends Component {
                 if(!responseJson.error)
                 {
                     Alert.alert(
-                      'Posted',
-                      'Your product request has been posted',
+                      'Community Added',
+                      'A new community has been added to your profile.',
                       [
-                        {text: 'OK', onPress: () => console.log('Posted ok pressed'), style: 'cancel'},
+                        {text: 'OK', onPress: () => Actions.homeScene(), style: 'cancel'},
                       ],
                       { cancelable: false }
                     )
-                    Actions.homeScene();
+                    
                 }
         })
         .catch((error) =>{
@@ -138,67 +107,43 @@ export default class Sell extends Component {
       <ICSPage>
       <KeyboardAvoidingView behavior="padding" style={ICSStyles.loginInputContainer}>
         <View style={ICSStyles.inputWrapper}>
-          <Text></Text>
-          <Text></Text>
-          <Text style={ICSStyles.titleText}>Intelligent Collection Shopping </Text>
-          <Text></Text>
-          <Text></Text>
-          <Text style={ICSStyles.subtitleText}>Make a post </Text>
           
+          <Text style={ICSStyles.titleText}>Add a community to your profile</Text>
+          <Text></Text>
+          <Text></Text>
+          <Text style={ICSStyles.subtitleText}>Find products at more locations.... </Text>
+          <Text></Text>
           <Text></Text><Text></Text>
           <TextInput
             style={ICSStyles.input}
-            placeholder="Product Name"
+            placeholder="Community Name"
             secureTextEntry={false}
             autoCorrect={false}
             autoCapitalize={'none'}
             returnKeyType={'done'}
             placeholderTextColor="black"
             underlineColorAndroid="transparent"
-            onChangeText={this.handleproductName}
+            onChangeText={this.handleName}
           />
+          <Text></Text>
           <Text></Text>
           <TextInput
             style={ICSStyles.input}
-            placeholder="Product Category"
+            placeholder="zip code"
             secureTextEntry={false}
             autoCorrect={false}
             autoCapitalize={'none'}
             returnKeyType={'done'}
             placeholderTextColor="black"
             underlineColorAndroid="transparent"
-            onChangeText={this.handlecategory}
-          />
-          <Text></Text>
-     <TextInput
-            style={ICSStyles.input}
-            placeholder="Item quantity"
-            secureTextEntry={false}
-            autoCorrect={false}
-            autoCapitalize={'none'}
-            returnKeyType={'done'}
-            placeholderTextColor="black"
-            underlineColorAndroid="transparent"
-            onChangeText={this.handlequantity}
-          />
-          <Text></Text>
-      <TextInput
-            style={ICSStyles.input}
-            placeholder="Price"
-            secureTextEntry={false}
-            autoCorrect={false}
-            autoCapitalize={'none'}
-            returnKeyType={'done'}
-            placeholderTextColor="black"
-            underlineColorAndroid="transparent"
-            onChangeText={this.handleprice}
+            onChangeText={this.handlezip}
           />
           <Text></Text>
           <Text></Text>
-          <Button
+         <Button
             style={ICSStyles.registerButton}
-            onPress={this.postProduct.bind()} 
-            title="Post"
+            onPress={() => this.addCommunity()}
+            title="Add"
           />
         </View>
       </KeyboardAvoidingView>

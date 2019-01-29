@@ -1,3 +1,4 @@
+const config = require('./ICSUserConfig');
 const User = require("./ICSUserModel");;
 
 module.exports = {
@@ -10,10 +11,8 @@ module.exports = {
 
 async function authenticate(userParam) {
 	console.log('ICSUserService: authenticate: userId = %s', userParam['userId'] );
-	var query = { userId: userParam['userId'] };
-    console.log("query",query);
+	var query = { userId:userParam['userId'] };
 	const user = await User.findOne(query);
-    console.log("user",user)
     if (user) {
         if(user.userPassword === userParam['userPassword'])
     	{

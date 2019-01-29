@@ -53,7 +53,7 @@ export default class LineChart extends React.Component {
         data:[],
     };
 
-    componentDidMount(){
+    componentWillMount(){
         this.fetchData();
     }
 

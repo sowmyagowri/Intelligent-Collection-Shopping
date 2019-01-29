@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Dimensions from 'Dimensions';
 import {
-  AsyncStorage,
   KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
@@ -10,8 +9,7 @@ import {
   Button,
   TextInput,
   View,
-  Alert,
-  YellowBox
+  Alert
 } from 'react-native';
 
 import {Actions, ActionConst} from 'react-native-router-flux';
@@ -22,25 +20,12 @@ import ICSStyles from './ICSStyles';
 
 export default class ICSLogin extends Component {
 
-  state ={ isLoading:true, user1: {}, uId:'', pwd:'',  myKey: '123'}
+  state ={ isLoading:true, user1: {}, uId:'', pwd:''}
   constructor(){
     super();
     
-    this.state = {
-      uId: "",
-      pwd: "",
-      myKey: '123',
-    }
-    this.handleUid = this.handleUid.bind(this);
-    this.handlePwd = this.handlePwd.bind(this)
-    this.login = this.login.bind(this);
-    YellowBox.ignoreWarnings([
-      'Warning: componentWillMount is deprecated',
-      'Warning: isMounted(...) is deprecated',
-      'Warning: isMounted is deprecated',
-      'Warning: componentWillReceiveProps is deprecated',
-      'Warning: Each child in an array or iterator should have a unique "key" prop.',
-    ]); 
+    this.uId = "";
+    this.pwd = "";
   }
 
   handleUid = (text) => {
@@ -51,25 +36,10 @@ export default class ICSLogin extends Component {
   }
 
   register(){
-    Actions.registerScene();
-
+    Actions.tabbar();
   }
-
-  saveData(key, value){
-    try{
-            AsyncStorage.setItem(key, value);
-          }
-          catch(error)
-          {
-            console.error('AsyncStorage error : ' + error.message);
-          }
-  }
-
-
-
   login(uid, pass){
-   // debugger;
-    return fetch('http://10.0.2.2:5000/users1/authenticate', {
+    return fetch('http://192.168.1.128:5000/users1/authenticate', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -84,9 +54,6 @@ export default class ICSLogin extends Component {
       .then((responseJson) => {
         if(!responseJson.error)
         {
-          this.saveData('userObj', JSON.stringify(responseJson));
-
-          this.saveData('currentZip', responseJson['user1'].userAddress);
           Actions.homeScene();
         }
         else
@@ -112,13 +79,7 @@ export default class ICSLogin extends Component {
   render() {
     return (
       <ICSPage>
-        <Text></Text>
-          <Text></Text>
-          <Text style={ICSStyles.titleText}>Intelligent Collection Shopping </Text>
-          <Text></Text>
-          <Text></Text>
-          <Text style={ICSStyles.subtitleText}>Login to proceed </Text>
-          
+      <KeyboardAvoidingView behavior="padding" style={ICSStyles.loginInputContainer}>
         <View style={ICSStyles.inputWrapper}>
           <TextInput
             style={ICSStyles.input}
@@ -158,9 +119,8 @@ export default class ICSLogin extends Component {
             onPress={() => this.register()}
             title="Register"
           />
-        
         </View>
-      
+      </KeyboardAvoidingView>
       </ICSPage>
     );
   }

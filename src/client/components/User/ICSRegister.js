@@ -9,7 +9,8 @@ import {
   Button,
   TextInput,
   View,
-  Alert
+  Alert,
+  YellowBox
 } from 'react-native';
 
 import {Actions, ActionConst} from 'react-native-router-flux';
@@ -23,7 +24,13 @@ export default class ICSRegister extends Component {
   state ={ isLoading:true, user1: {}, uId:'', pwd:'', firstName:'', lastName:'',contactNumber:'',address:''}
   constructor(){
     super();
-    
+    YellowBox.ignoreWarnings([
+      'Warning: componentWillMount is deprecated',
+      'Warning: isMounted(...) is deprecated',
+      'Warning: isMounted is deprecated',
+      'Warning: componentWillReceiveProps is deprecated',
+      'Warning: Each child in an array or iterator should have a unique "key" prop.',
+    ]); 
   }
 
   handleUid = (text) => {
@@ -46,7 +53,7 @@ export default class ICSRegister extends Component {
   }
 
   register(uid, pass, first, last, contact, address){
-    return fetch('http://192.168.1.128:5000/users1/register', {
+    return fetch('http://10.250.211.239:5000/users1/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -81,7 +88,14 @@ export default class ICSRegister extends Component {
       <ICSPage>
       <KeyboardAvoidingView behavior="padding" style={ICSStyles.loginInputContainer}>
         <View style={ICSStyles.inputWrapper}>
-          <Text>{'User Registration! '}</Text>
+          <Text></Text>
+          <Text></Text>
+          <Text style={ICSStyles.titleText}>Intelligent Collection Shopping </Text>
+          <Text></Text>
+          <Text></Text>
+          <Text style={ICSStyles.subtitleText}>Register to proceed </Text>
+          
+          <Text></Text><Text></Text>
           <TextInput
             style={ICSStyles.input}
             placeholder="user id"
@@ -93,6 +107,7 @@ export default class ICSRegister extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handleUid}
           />
+          <Text></Text>
           <TextInput
             style={ICSStyles.input}
             placeholder="password"
@@ -104,6 +119,7 @@ export default class ICSRegister extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handlePwd}
           />
+          <Text></Text>
 	 <TextInput
             style={ICSStyles.input}
             placeholder="first name"
@@ -115,6 +131,7 @@ export default class ICSRegister extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handleFirst}
           />
+          <Text></Text>
 	  <TextInput
             style={ICSStyles.input}
             placeholder="last name"
@@ -126,6 +143,7 @@ export default class ICSRegister extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handleLast}
           />
+          <Text></Text>
 	 <TextInput
             style={ICSStyles.input}
             placeholder="contact number"
@@ -137,9 +155,10 @@ export default class ICSRegister extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handleContact}
           />
+          <Text></Text>
 	  <TextInput
             style={ICSStyles.input}
-            placeholder="address"
+            placeholder="Zip code"
             secureTextEntry={false}
             autoCorrect={false}
             autoCapitalize={'none'}
@@ -148,6 +167,7 @@ export default class ICSRegister extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handleAddress}
           />
+          <Text></Text>
           <Button
             style={ICSStyles.registerButton}
             onPress={() => this.register(this.state.uId, this.state.pwd, this.state.firstName, this.state.lastName, this.state.contactNumber, this.state.address)}

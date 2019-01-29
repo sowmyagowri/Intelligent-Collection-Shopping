@@ -8,9 +8,14 @@ import RegisterPage from './ICSRegister.js';
 import ProfilePage from './ICSProfile.js';
 import HistoryPage from './ICSHistory.js';
 import PostsPage from './ICSPosts.js';
-import MapPage from './ICSMap.js';
+import SearchPage from './ICSSearch.js';
+import LogoutPage from './ICSLogout.js';
+import SellPage from './Sell.js';
 import Category from './Category.js';
-import Sell from './Sell.js';
+import CommunitiesPage from './ICSCommunities.js';
+import AddComuPage from './ICSAddCommunity.js';
+import ComuSellPage from './ICSSell.js';
+//import MapPage from './ICSMap.js';
 
 const TabIcon = ({ selected, title }) => {
   	return (
@@ -35,61 +40,79 @@ export default class ICSRoot extends Component {
 	          component={HomePage}
 	          animation='fade'
 	          hideNavBar={true}
+	          
 	        />
-	        <Scene key="MapScene"
-              component={MapPage}
-              animation='fade'
-              hideNavBar={true}
-            />
-					<Scene key="registerScene"
+			<Scene key="registerScene"
 	          component={RegisterPage}
 	          animation='fade'
-	          hideNavBar={true}
+	          hideNavBar={false}
 	        />
-					<Scene key="sell"
-		        	component={Sell}
-							animation='fade'
-							hideNavBar={true}
-		      />
-	        <Scene key="tabbar"
-          	  tabs={true}
-          	  hideNavBar={true}
-              tabBarStyle={{ backgroundColor: '#FFFFFF' }} >
-	            {/* Tab and it's scenes */}
-	            <Scene key="userProf" title="Profile" icon={TabIcon}>
-		            <Scene
-		              key="profileScene"
-		              component={ProfilePage}
-		              title="User Profile"
-		              hideNavBar={true}
-		              initial={true}
-		            />
-	            </Scene>
-	            <Scene key="userHistory" title="History" icon={TabIcon}>
-		            <Scene
-		              key="historyScene"
-		              component={HistoryPage}
-		              title="User History"
-		              hideNavBar={true}
-		            />
-            	</Scene>
-            	<Scene key="userPosts" title="Posts" icon={TabIcon}>
-		            <Scene
-		              key="postsScene"
-		              component={PostsPage}
-		              title="User Posts"
-		              hideNavBar={true}
-		            />
-            	</Scene>
-							<Scene key="category" title="Posts" icon={TabIcon}>
-		            <Scene
-		              key="productList"
-		              component={Category}
-		              title="Product List"
-		              hideNavBar={true}
-		            />
-            	</Scene>
-	        </Scene>
+	        <Scene key="searchScene"
+	          component={SearchPage}
+	          animation='fade'
+	          hideNavBar={false}
+	          title="Search product"
+	        />
+	        <Scene key="profileScene"
+              component={ProfilePage}
+              animation='fade'
+              hideNavBar={false}
+              title="User Profile"
+            />
+            <Scene key="historyScene"
+		       component={HistoryPage}
+		       animation='fade'
+		       hideNavBar={false}
+		       title="Buy History"
+		    />
+		    <Scene key="postsScene"
+		       component={PostsPage}
+		       animation='fade'
+		       hideNavBar={false}
+		       title="Sell Posts"
+		    />
+		    <Scene key="sellScene"
+		       component={SellPage}
+		       animation='fade'
+		       title="Post Item"
+		       hideNavBar={false}
+		    />
+		    <Scene
+		       key="productList"
+		       component={Category}
+		       animation='fade'
+		       title="Product List"
+		       hideNavBar={false}
+		    />
+	        <Scene
+		       key="logoutScene"
+		       component={LogoutPage}
+		       animation='fade'
+		       title="Logout"
+		       hideNavBar={false}
+		    />
+		    <Scene
+		       key="communitiesScene"
+		       component={CommunitiesPage}
+		       animation='fade'
+		       title="User Communities"
+		       hideNavBar={false}
+		    />
+		    <Scene
+		       key="addComuScene"
+		       component={AddComuPage}
+		       animation='fade'
+		       title="Add community"
+		       hideNavBar={false}
+		    />
+		  <Scene
+		       key="ComuSellScene"
+		       component={ComuSellPage}
+		       animation='fade'
+		       title="Post in community"
+		       hideNavBar={false}
+		    />
+
 	      </Scene>
 	    </Router>
 	  );

@@ -20,7 +20,7 @@ export default class product extends Component {
             <CardItem cardBody>
               <Button transparent style={style.button} onPress={() => this.pressed()}>
                 {/* <Image source={{uri: this.props.product.picture}} style={style.image}/> */}
-                {/* <Image source={{uri: 'http://172.27.238.145:5000/productImages/${this.props.product.picture}'}} style={style.image}/> */}
+                <Image source={{uri: 'http://localhost:5000/productImages/${this.props.product.picture}'}} style={style.image}/>
                 <View style={style.border} />
               </Button>
             </CardItem>

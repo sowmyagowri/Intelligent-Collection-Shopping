@@ -7,7 +7,6 @@ import {
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const MARGIN = 40;
-const BUTTON_HEIGHT = 35;
 
 export default StyleSheet.create({
   container: {
@@ -23,7 +22,7 @@ export default StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#000000',
+    color: '#333333',
     marginBottom: 5,
   },
   backgroundImg: {
@@ -33,18 +32,22 @@ export default StyleSheet.create({
     //resizeMode: 'cover',
   },
   input: {
-    backgroundColor: 'rgba(211, 211, 211, 0.4)',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
     width: DEVICE_WIDTH - 40,
     height: 40,
     marginHorizontal: 20,
     paddingLeft: 45,
     borderRadius: 20,
-    color: '#000000',
+    paddingBottom: 30,
+    color: '#ffffff',
   },
   inputWrapper: {
     flex: 1,
+    height: 100,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 30,
+   // justifyContent: 'space-between',
   },
   loginInputContainer: {
     flex: 1,
@@ -68,77 +71,21 @@ export default StyleSheet.create({
     borderRadius: 20,
     zIndex: 100,
   },
-  searchButton: {
-    alignItems: 'center',
-    width: 30,
-    justifyContent: 'center',
-    backgroundColor: '#F03000',
-    height: 30,
-    borderRadius: 20,
-    zIndex: 100,
-  },
   profileInfo: {
     fontSize: 20,
-    textAlign: 'left',
-    color: '#000000',
-    width: DEVICE_WIDTH/2,
-    margin: 10,
-  },
-  labelText: {
-    fontSize: 20,
-    textAlign: 'right',
-    //backgroundColor: 'powderblue',
-    color: '#0000FF',
-    width: DEVICE_WIDTH/2,
-    margin: 10,
-  },
-  titleText: {
-    fontSize: 30,
     textAlign: 'center',
     margin: 10,
-    color: '#0000FF',
-  },
-  subtitleText: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#000000',
-  },
-  profileContainer: {
-    flex: 1,
+    color: '#ffffff',
   },
   flatview: {
-    flex: 1,
-    flexDirection: 'row',
-    
+    justifyContent: 'center',
+    paddingTop: 30,
+    borderRadius: 2,
   },
   listItem: {
     padding: 10,
     fontSize: 18,
     height: 44,
-    width: 100,
-    color: '#000000',
-  },
-  imageView: {
- 
-    width: '50%',
-    height: 100 ,
-    margin: 7,
-    borderRadius : 7
- 
-},
-  leftButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'powderblue',
-    borderRadius: 20,
-    zIndex: 100,
-    margin: 10,
-    height: BUTTON_HEIGHT,
-  },
-  listSubtitle: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    color: '#ffffff',
   },
 });

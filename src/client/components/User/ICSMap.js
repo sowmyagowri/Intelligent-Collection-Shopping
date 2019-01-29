@@ -31,7 +31,7 @@ class ICSMap extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       position => {},
       error => alert(error.message),

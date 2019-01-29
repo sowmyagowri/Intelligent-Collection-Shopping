@@ -17,7 +17,6 @@ import CategoryBlock from '../component/CategoryBlock';
 
 
 export default class Home extends Component {
-
   render() {
     var left = (
       <Left style={{flex:1}}>
@@ -52,7 +51,7 @@ export default class Home extends Component {
     let cat = [];
     for(var i=0; i<categories.length; i++) {
       cat.push(
-        <CategoryBlock key={categories[i].id} id={categories[i].id} image={categories[i].image} title={categories[i].title} subtitle={categories[i].subtitle} />
+        <CategoryBlock key={categories[i].key} id={categories[i].id} image={categories[i].image} title={categories[i].title} />
       );
     }
     return cat;
@@ -64,13 +63,13 @@ var categories = [
   {
     id: 1,
     title: 'Buy',
-    subtitle: 'Shop Now',
-    image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_489/v1500284127/pexels-photo-497848_yenhuf.jpg'
+    image: 'https://www.iconsdb.com/icons/preview/caribbean-blue/cart-79-xxl.png',
+    key: 'productList'
   },
   {
     id: 2,
     title: 'Sell',
-    subtitle: 'Sell Now',
-    image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_460/v1500284237/pexels-photo-324030_wakzz4.jpg'
+    image: 'https://www.iconsdb.com/icons/preview/royal-blue/sell-2-xxl.png',
+    key: 'sellScene'
   }
 ];

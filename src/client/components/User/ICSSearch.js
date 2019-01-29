@@ -1,50 +1,58 @@
 import React from 'react';
-import { AsyncStorage, FlatList, ActivityIndicator, Text, View ,StyleSheet, Image, ImageBackground, YellowBox } from 'react-native';
+import { AsyncStorage, FlatList, ActivityIndicator, Text,
+  Button,
+  TouchableOpacity,
+  TextInput, View ,StyleSheet, YellowBox } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import { Header, Icon, Item, Input } from 'native-base';
 
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
-import bgSrc from '../images/background.jpg';
+import Colors from '../Colors';
 
-export default class ICSPosts extends React.Component {
+export default class ICSSearch extends React.Component {
 
   constructor(props){
     super(props);
     this.state ={ isLoading: true,
     userString:"defaultUser",
+    searchStr:"milk",
       userObj: null,},
       this.userId = "test2",
 
-   YellowBox.ignoreWarnings([
+    YellowBox.ignoreWarnings([
       'Warning: componentWillMount is deprecated',
       'Warning: isMounted(...) is deprecated',
       'Warning: isMounted is deprecated',
       'Warning: componentWillReceiveProps is deprecated',
       'Warning: Each child in an array or iterator should have a unique "key" prop.',
-    ]);      
+    ]);
+    this.zip = '94306';
+    this.handleSearch = this.handleSearch.bind(this);
+    this.searchProduct = this.searchProduct.bind(this);
   }
 
-    async getKey() {
-    try {
-      const valueU = await AsyncStorage.getItem('userObj');
-     
-      const users = JSON.parse(valueU);
-      this.userId = users['user1'].userId;
-
-    } catch (error) {
-      console.log("Error retrieving data" + error);
-    }
+  handleSearch = (text) => {
+      this.setState({ searchStr: text })
   }
 
-  componentWillReceiveProps(){
-    return fetch('http://10.0.2.2:5000/products/getById', {
+  searchProduct(){
+    this.setState({
+          isLoading: true,
+          
+        }, function(){
+
+        });
+
+    fetch('http://10.0.2.2:5000/products/findByProductNameandZip', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          sellerUserId: this.userId,
+          productName: this.state.searchStr,
+          userAddress: this.zip,
         }),
       })
       .then((response) => response.json())
@@ -62,35 +70,29 @@ export default class ICSPosts extends React.Component {
         console.error(error);
         
       }); 
+
   }
+
+  async getZip() {
+    try {
+      const valueU = await AsyncStorage.getItem('currentZip');
+      this.zip = valueU;
+    } catch (error) {
+      console.log("Error retrieving data" + error);
+    }
+  }
+
   componentDidMount(){
-    this.getKey().then(() =>{
-    return fetch('http://10.0.2.2:5000/products/getById', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sellerUserId: this.userId,
-        }),
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        this.setState({
+    //  debugger;
+
+    this.getZip().then(() =>
+      this.setState({
           isLoading: false,
-          dataSource:  responseJson,
+          
         }, function(){
 
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-        
-      });
-      });
+        }),
+      );
   }
 
   getImage(prodName)
@@ -130,10 +132,30 @@ render(){
 
     return(
       <ICSPage>
+      <Header
+          searchBar
+          rounded
+          style={{backgroundColor: Colors.navbarBackgroundColor}}
+          backgroundColor={Colors.navbarBackgroundColor}
+          androidStatusBarColor={Colors.statusBarColor}
+          noShadow={true}
+        >
+            <Item>
+              <Input
+                placeholder="Search..."
+                value={this.state.searchText}
+                onChangeText={(text) => this.setState({searchStr: text})}
+                onSubmitEditing={() => this.searchProduct()}
+                style={{marginTop: 9}}
+              />
+              <Icon name="ios-search" onPress={() => this.searchProduct()} />
+            </Item>
+          </Header>
+      
       <View style={{flex: 1, paddingTop:20}}>
       <Text></Text>
-          <Text></Text>
-          <Text style={ICSStyles.titleText}>Current Posts </Text>
+
+
           <Text></Text>
           <Text></Text>
           <List>
@@ -142,7 +164,7 @@ render(){
               renderItem={({item}) =>(
                   <ListItem 
                       roundAvatar
-                      title={item.productName} 
+                      title={item.productName }
                       subtitle={
                           <View style={ICSStyles.listSubtitle}>
                             <Text>{item.category}</Text>
@@ -151,6 +173,7 @@ render(){
                           </View>
                         }
                       avatar={{uri:this.getImage(item.productName)}}
+
                       />
                 )
               

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const dbURI =
-  "mongodb://admin:admin123@ds111718.mlab.com:11718/easybuy";
+  "mongodb+srv://harshadab:harshadab@cluster0-23qcr.gcp.mongodb.net/test?retryWrites=true";
 
 const options = {
   reconnectTries: Number.MAX_VALUE,
@@ -21,3 +21,4 @@ mongoose.Promise = global.Promise;
 
 // require any models
 require("./ICSUserModel");
+require("./ICSPostModel");

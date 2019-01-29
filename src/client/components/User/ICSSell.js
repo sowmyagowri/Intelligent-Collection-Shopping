@@ -16,7 +16,7 @@ import {
 import ICSPage from './ICSPage';
 import ICSStyles from './ICSStyles';
 
-export default class Sell extends Component {
+export default class ICSSell extends Component {
 
     constructor(){
       super();
@@ -79,10 +79,21 @@ export default class Sell extends Component {
 
       componentDidMount(){
         this.getKey().then(() =>{
-            this.setState({isLoading: false});
+		this.getZip().then(() =>{
+		            this.setState({isLoading: false});
+        });
+
         });
       }
 
+  async getZip() {
+    try {
+      const valueU = await AsyncStorage.getItem('currentZip');
+      this.zipCode = valueU;
+    } catch (error) {
+      console.log("Error retrieving data" + error);
+    }
+  }
     postProduct(){
         
         console.log("in post product");
